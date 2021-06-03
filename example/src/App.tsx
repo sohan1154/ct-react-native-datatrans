@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text,TouchableOpacity } from 'react-native';
 import Datatrans from 'react-native-datatrans';
 
 export default function App() {
@@ -8,11 +8,22 @@ export default function App() {
 
   React.useEffect(() => {
     Datatrans.multiply(3, 7).then(setResult);
+   
   }, []);
-
+const checkTans=()=>{
+  console.log('checktrans')
+  try{
+  Datatrans.transaction('asdfas2312312', '21312313').then(res=>
+    console.log('res',res)
+  ).catch(err=>console.log('err',err));
+  }catch(err){
+    console.error(err);
+  }
+}
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
+      <TouchableOpacity onPress={checkTans}><Text>Click to check</Text></TouchableOpacity>
     </View>
   );
 }

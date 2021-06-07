@@ -5,22 +5,24 @@ datatrans android and ios integration
 ## Installation
 
 ```sh
-npm install react-native-datatrans
+npm install ct-react-native-datatrans
 ```
 
 ## Usage
 
 ```js
-import Datatrans from "react-native-datatrans";
+import Datatrans from "ct-react-native-datatrans";
 
 // ...
 
-const result = await Datatrans.multiply(3, 7);
+const result = await Datatrans.transaction('mobileToken');
 ```
 
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+## Note
+ios is still in processess
 
 ## License
 

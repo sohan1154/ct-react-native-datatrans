@@ -1,6 +1,6 @@
 {
-  "name": "react-native-datatrans",
-  "version": "0.1.0",
+  "name": "ct-react-native-datatrans",
+  "version": "1.0.5",
   "description": "datatrans android and ios integration",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/sabashBlaze/react-native-datatrans",
+  "repository": "https://github.com/sabashBlaze/ct-react-native-datatrans",
   "author": "sabash-c <sabash.c@blaze.ws> (https://github.com/sabashBlaze)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sabashBlaze/react-native-datatrans/issues"
+    "url": "https://github.com/sabashBlaze/ct-react-native-datatrans/issues"
   },
-  "homepage": "https://github.com/sabashBlaze/react-native-datatrans#readme",
+  "homepage": "https://github.com/sabashBlaze/ct-react-native-datatrans#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

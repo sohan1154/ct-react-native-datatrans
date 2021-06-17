@@ -1,4 +1,4 @@
-# react-native-datatrans
+# ct-react-native-datatrans
 
 datatrans android and ios integration
 

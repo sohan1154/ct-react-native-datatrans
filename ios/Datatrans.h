@@ -1,5 +1,5 @@
 #import <React/RCTBridgeModule.h>
-
-@interface Datatrans : NSObject <RCTBridgeModule>
+#import <UIKit/UIKit.h>
+@interface CTdatatrans : NSObject <RCTBridgeModule>
 
 @end

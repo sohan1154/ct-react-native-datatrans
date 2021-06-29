@@ -1,6 +1,6 @@
 {
   "name": "ct-react-native-datatrans",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "datatrans android and ios integration",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -13,7 +13,8 @@
     "android",
     "ios",
     "cpp",
-    "react-native-datatrans.podspec",
+    "Datatrans.podspec",
+    "ct-react-native-datatrans.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",

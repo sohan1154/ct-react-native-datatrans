@@ -22,7 +22,7 @@ const result = await Datatrans.transaction('mobileToken');
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 ## Note
-ios is still in processess
+IOS card payment done
 
 ## License
 

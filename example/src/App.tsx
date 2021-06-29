@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text,TouchableOpacity } from 'react-native';
-import Datatrans from 'react-native-datatrans';
+import Datatrans from 'ct-react-native-datatrans';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();

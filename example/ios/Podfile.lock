@@ -1,7 +1,7 @@
 PODS:
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
-  - ct-react-native-datatrans (0.1.0):
+  - ct-react-native-datatrans (1.0.5):
     - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.63.4)
@@ -429,7 +429,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  ct-react-native-datatrans: dd341ba10fa906f3208136d4f597fc46ff1fa126
+  ct-react-native-datatrans: d243724ccfb652bede42652977f85c2ec05a58ae
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e

@@ -17,6 +17,25 @@ import Datatrans from "ct-react-native-datatrans";
 
 const result = await Datatrans.transaction('mobileToken');
 ```
+or
+
+```js
+const result = await Datatrans.transaction('mobileToken',options);
+
+ options = {
+  aliasPaymentMethods?: [{
+    alias?: string,
+    ccNumber?: string,
+    expiryMonth?: number,
+    expiryYear?: number,
+    paymentMethods?: string
+    cardHolder?:string
+  }],
+  isTesing: boolean,
+  isUseCertificatePinning: boolean,
+  appCallbackScheme: string
+}
+```
 
 ## Contributing
 

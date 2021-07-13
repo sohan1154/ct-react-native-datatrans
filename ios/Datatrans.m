@@ -37,7 +37,7 @@
     });
 }
 -(void)transactionDidFinish:(DTTransaction * )transaction result:(DTTransactionSuccess *)result{
-    NSLog( @"Finish");
+    NSLog( @"Finish");    
     [self dismissView];
     NSString *transactionId = result.transactionId;
         DTPaymentMethodToken *paymentMethodToken = result.paymentMethodToken;
@@ -96,12 +96,13 @@ RCT_REMAP_METHOD(multiply,
 
 RCT_REMAP_METHOD(transaction,
                  mobileTokenWithA:(nonnull NSString*)mobileToken withB:(nonnull NSDictionary*)options
-                 //aliasPaymentMethods
+                 //aliasPaymentMethods:aliasPaymentMethods
                    
   withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
-    
+    //NSLog(transaction);
+    NSLog(@"checkaliaspaymentmedhodddd");
     [self.simpleViewDelegate setCallback:resolve];
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         
@@ -124,26 +125,56 @@ RCT_REMAP_METHOD(transaction,
        
         if([options objectForKey:@"aliasPaymentMethods"])
         {
-            DTCardExpiryDate* dtCardExpiryDate;
-            dtCardExpiryDate.month=12;
-            dtCardExpiryDate.year=21;
-            DTCardToken* dct=[[DTCardToken alloc] initWithType:DTPaymentMethodTypeMasterCard token:@"AAABegpC1VrssdexyrAAAYOwm9FmAKtz" cardExpiryDate:dtCardExpiryDate maskedCardNumber:@"520000xxxxxx0007" cardholder:@""];
+            NSArray* aliasPaymentMethods=[options valueForKey:@"aliasPaymentMethods"];
+           // NSLog(@"ifffffffffffffffffffffdatatransssssmmmmmmmm");
+            //aliasPaymentMethod from previous transactionDTRecurringPaymentMethod* aliasPaymentMethod = ...;
+            //DTPaymentController* pc; 
+            //pc = [DTPaymentControllerpaymentControllerWithDelegate:selfpaymentRequest:paymentRequestrecurringPaymentMethod:aliasPaymentMethod];
+            //[pc presentInNavigationController:navigationControlleranimated:YES];
+            NSArray* pm=@[];
+            for (NSDictionary* apm in aliasPaymentMethods) {
+               // apm.
+                //NSObject* apmO=apm;
+                //NSLog(@"apm",[apm valueForKey:@"alias"]);
+                //NSLog(apm[@"alias"])
+              //  NSLog (@"test== %@ %@", apm,[apm valueForKey:@"alias"]);	
+              //  DTPaymentMethod* dpm=[DTPaymentMethod init];
+               /// [dpm initWithType:]
             
-            transactions = [[DTTransaction alloc] initWithMobileToken:mobileToken paymentMethodTokens:@[dct]];
+            DTCardExpiryDate* dtCardExpiryDate;
+                dtCardExpiryDate.month=[[apm valueForKey:@"expiryMonth"] intValue];
+                dtCardExpiryDate.year=[[apm valueForKey:@"expiryYear"] intValue];
+                DTCardToken* dct=[[DTCardToken alloc] initWithType:[[apm valueForKey:@"paymentMethods"] intValue] token:[apm valueForKey:@"alias"] cardExpiryDate:dtCardExpiryDate maskedCardNumber:[apm valueForKey:@"ccNumber"] cardholder:@""];
+                
+           // initWithType:[dpm  initWithType:[apm valueForKey:@"paymentMethods"]]
+                pm=[pm arrayByAddingObject:dct];
+                //pm=[pm arrayByAddingObject:dct.copy];
+                //NSLog (@"testeee== %@ %@ %@", pm,dct,dtCardExpiryDate);
+                
+            }
+           // NSLog (@"testeee== %@", pm);
+            transactions = [[DTTransaction alloc] initWithMobileToken:mobileToken paymentMethodTokens:pm];
         }
         else{
+          //  NSLog(@"elseeeeeeeeeeeeeeeeeeeeeedatatransssssmmmmmmmm");
             transactions = [[DTTransaction alloc] initWithMobileToken:mobileToken];
             
         }
-        // aliasPaymentMethods:aliasPaymentMethods
+         
+        
         transactions.delegate = self.simpleViewDelegate;//(id<DTTransactionDelegate>) self;
         BOOL testing=[[options valueForKey:@"isTesting"] boolValue]?:YES;
         
         BOOL useCertificatePinning=[[options valueForKey:@"isUseCertificatePinning"] boolValue]?:YES;
-        
+            
+        //BOOL aliasPaymentMethods = [options objectForKey:@"aliasPaymentMethods"];
+            
         transactions.options.appCallbackScheme = options[@"appCallbackScheme"]?:@"ct-datatrans";
+            //transactions.options.aliasPaymentMethods = [options objectForKey:@"aliasPaymentMethods"];
+        
         transactions.options.testing =testing;
-transactions.options.useCertificatePinning = useCertificatePinning;
+        transactions.options.useCertificatePinning = useCertificatePinning;
+        //transactions.options.aliasPaymentMethods = aliasPaymentMethods;
       
         [transactions startWithPresentingController:rootViewController];
         }

@@ -3,6 +3,7 @@ package com.reactnativedatatrans;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
@@ -33,6 +35,7 @@ import ch.datatrans.payment.api.TransactionRegistry;
 import ch.datatrans.payment.api.TransactionSuccess;
 import ch.datatrans.payment.exception.TechnicalException;
 import ch.datatrans.payment.exception.TransactionException;
+import ch.datatrans.payment.paymentmethods.CardExpiryDate;
 import ch.datatrans.payment.paymentmethods.CardToken;
 import ch.datatrans.payment.paymentmethods.PaymentMethodToken;
 import ch.datatrans.payment.paymentmethods.PaymentMethodType;
@@ -84,14 +87,25 @@ public class DatatransModule extends ReactContextBaseJavaModule {
       Transaction transaction;
       try {
         Collection paymentCollection= new ArrayList<>();
-        //PaymentMethodType
-        //PaymentMethodToken pmt;
-       // CardToken ct =new CardToken();
-      //  ct.setToken("SDFASDF");
-      //  ct.
-        //paymentCollection.add(aliasPaymentMethods);
+
+        ReadableArray aliasPaymentMethods;//=new ArrayList<>();
+        aliasPaymentMethods=options.getArray("aliasPaymentMethods");
+        //aliasPaymentMethods.get
         List<PaymentMethodToken> paymentMethodTokens = new ArrayList<>();
-        paymentMethodTokens.addAll(paymentCollection);
+        //Log.d("myTag", aliasPaymentMethods.toString());
+        for(int i = 0; i < aliasPaymentMethods.size(); i++)
+        {
+          ReadableMap apm;
+          apm=aliasPaymentMethods.getMap(i);
+        CardExpiryDate ced=new CardExpiryDate(apm.getInt("expiryMonth"),apm.getInt("expiryYear"));
+         //  Log.d("Visssssss",PaymentMethodType.VISA.toString());
+        //  Log.d("fromIdentifier", PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")).toString());
+
+        CardToken ct=new CardToken(PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")),apm.getString("alias"),ced,apm.getString("ccNumber"),"");
+
+
+        paymentMethodTokens.add(ct);
+        }
 
       //modules.add(new DatatransModule(reactContext));
 
@@ -153,10 +167,6 @@ public class DatatransModule extends ReactContextBaseJavaModule {
         transaction.getOptions().setUseCertificatePinning(options.getBoolean("isUseCertificatePinning"));
         TransactionRegistry.INSTANCE.startTransaction(activity, transaction);
 
-     // consumeCallback("temp", mapObj);
-      //promise.resolve(callback);
-        //throw  new TechnicalException("Technical Error",null,null,null);
-        //promise.resolve(transaction.getListener().toString());
       } catch (Exception e) {
 
         promise.reject(e);

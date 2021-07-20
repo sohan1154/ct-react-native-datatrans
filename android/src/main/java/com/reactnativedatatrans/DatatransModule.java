@@ -97,8 +97,15 @@ public class DatatransModule extends ReactContextBaseJavaModule {
         {
           ReadableMap apm;
           apm=aliasPaymentMethods.getMap(i);
+          //playersObjects[i] = new PlayerScores(); //make the object so we can access it
+          //playersObjects[i].playerNameSet(name variable);
+
+        //PaymentMethodType.valueOf(apm.getString("paymentMethods"));
+       // PaymentMethodType pmtype=new PaymentMethodType(aliasPaymentMethods.getString("paymentMethods"));
+        //pmtype=aliasPaymentMethods.getString("paymentMethods");
         CardExpiryDate ced=new CardExpiryDate(apm.getInt("expiryMonth"),apm.getInt("expiryYear"));
-         //  Log.d("Visssssss",PaymentMethodType.VISA.toString());
+ //         PaymentMethodType.VISA.getIdentifier();
+        //  Log.d("Visssssss",PaymentMethodType.VISA.toString());
         //  Log.d("fromIdentifier", PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")).toString());
 
         CardToken ct=new CardToken(PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")),apm.getString("alias"),ced,apm.getString("ccNumber"),"");
@@ -123,7 +130,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           WritableMap map = Arguments.createMap();
           WritableMap data = Arguments.createMap();
 
-          map.putMap("Data",data);
+          map.putMap("data",data);
           map.putString("action","Cancel");
 
           Toast.makeText(getReactApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
@@ -138,7 +145,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           data.putString("transactionId", e.getTransactionId());
           data.putString("message", e.getMessage());
           data.putString("paymentMethodType", e.getPaymentMethodType().getIdentifier());
-          map.putMap("Data",data);
+          map.putMap("data",data);
           map.putString("action","Error");
           Toast.makeText(getReactApplicationContext(), "Error", Toast.LENGTH_LONG).show();
           mapObj=map;
@@ -153,7 +160,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           data.putString("paymentMethodToken", transactionSuccess.getPaymentMethodToken().toString());
           data.putString("paymentMethodType", transactionSuccess.getPaymentMethodType().getIdentifier());
 
-          map.putMap("Data",data);
+          map.putMap("data",data);
           map.putString("action","Finish");
 
           Toast.makeText(getReactApplicationContext(), "Success", Toast.LENGTH_LONG).show();

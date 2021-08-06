@@ -40,6 +40,12 @@ import ch.datatrans.payment.paymentmethods.CardToken;
 import ch.datatrans.payment.paymentmethods.PaymentMethodToken;
 import ch.datatrans.payment.paymentmethods.PaymentMethodType;
 
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
 @ReactModule(name = DatatransModule.NAME)
 public class DatatransModule extends ReactContextBaseJavaModule {
   public static final String NAME = "Datatrans";

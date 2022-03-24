@@ -36,8 +36,10 @@ import ch.datatrans.payment.api.TransactionSuccess;
 import ch.datatrans.payment.exception.TechnicalException;
 import ch.datatrans.payment.exception.TransactionException;
 import ch.datatrans.payment.paymentmethods.CardExpiryDate;
-import ch.datatrans.payment.paymentmethods.CardToken;
-import ch.datatrans.payment.paymentmethods.PaymentMethodToken;
+//import ch.datatrans.payment.paymentmethods.PaymentMethodToken;
+import ch.datatrans.payment.paymentmethods.SavedCard;
+import ch.datatrans.payment.paymentmethods.SavedPaymentMethod;
+//import ch.datatrans.payment.paymentmethods.PaymentMethodToken;
 import ch.datatrans.payment.paymentmethods.PaymentMethodType;
 
 import android.webkit.WebResourceRequest;
@@ -88,8 +90,8 @@ public class DatatransModule extends ReactContextBaseJavaModule {
 
     //aliasPaymentMethods
     if (activity != null) {
-      Intent intent = new Intent(context, ExternalProcessRelayActivity.class);
-      activity.startActivity(intent);
+      //Intent intent = new Intent(context, ExternalProcessRelayActivity.class);
+     // activity.startActivity(intent);
       Transaction transaction;
       try {
         Collection paymentCollection= new ArrayList<>();
@@ -97,7 +99,8 @@ public class DatatransModule extends ReactContextBaseJavaModule {
         ReadableArray aliasPaymentMethods;//=new ArrayList<>();
         aliasPaymentMethods=options.getArray("aliasPaymentMethods");
         //aliasPaymentMethods.get
-        List<PaymentMethodToken> paymentMethodTokens = new ArrayList<>();
+       // List<PaymentMethodType> paymentMethodTypes = new ArrayList<>();
+        List<SavedPaymentMethod> paymentMethodTypes = new ArrayList<>();
         //Log.d("myTag", aliasPaymentMethods.toString());
         for(int i = 0; i < aliasPaymentMethods.size(); i++)
         {
@@ -113,17 +116,17 @@ public class DatatransModule extends ReactContextBaseJavaModule {
  //         PaymentMethodType.VISA.getIdentifier();
         //  Log.d("Visssssss",PaymentMethodType.VISA.toString());
         //  Log.d("fromIdentifier", PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")).toString());
-
-        CardToken ct=new CardToken(PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")),apm.getString("alias"),ced,apm.getString("ccNumber"),"");
-
-
-        paymentMethodTokens.add(ct);
+        //  CardToken ct=new CardToken(PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")),apm.getString("alias"),ced,apm.getString("ccNumber"),"");
+          SavedCard ct=new SavedCard(PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")),apm.getString("alias"),ced,apm.getString("ccNumber"),"");
+          paymentMethodTypes.add(ct);
+         // SavedPaymentMethod spm = new SavedPaymentMethod(PaymentMethodType.fromIdentifier(apm.getString("paymentMethods")),apm.getString("alias"));
+       // paymentMethodTypes.add(spm);
         }
 
       //modules.add(new DatatransModule(reactContext));
 
-        if(paymentMethodTokens.size()>0) {
-          transaction = new Transaction(mobileToken, paymentMethodTokens);
+        if(paymentMethodTypes.size()>0) {
+          transaction = new Transaction(mobileToken, (List<? extends SavedPaymentMethod>) paymentMethodTypes);
         }
         else{
           transaction = new Transaction(mobileToken);
@@ -163,7 +166,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           WritableMap map = Arguments.createMap();
           WritableMap data = Arguments.createMap();
           data.putString("transactionId", transactionSuccess.getTransactionId());
-          data.putString("paymentMethodToken", transactionSuccess.getPaymentMethodToken().toString());
+          data.putString("paymentMethodToken",""); //transactionSuccess.getPaymentMethodToken().toString()
           data.putString("paymentMethodType", transactionSuccess.getPaymentMethodType().getIdentifier());
 
           map.putMap("data",data);
@@ -176,7 +179,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
       };
       transaction.setListener(transactionListener); // this refers to Android's Activity
         transaction.getOptions().setAppCallbackScheme(options.getString("appCallbackScheme"));
-        transaction.getOptions().setTesting(options.getBoolean("isTesing") );
+        transaction.getOptions().setTesting(options.getBoolean("isTesting") );
         transaction.getOptions().setUseCertificatePinning(options.getBoolean("isUseCertificatePinning"));
         TransactionRegistry.INSTANCE.startTransaction(activity, transaction);
 

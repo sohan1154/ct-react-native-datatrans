@@ -1,4 +1,5 @@
 import { NativeModules } from 'react-native';
+
 type options = {
   aliasPaymentMethods?: [{
     alias?: string,
@@ -8,7 +9,7 @@ type options = {
     paymentMethods?: string
     cardHolder?:string
   }],
-  isTesing: boolean,
+  isTesting: boolean,
   isUseCertificatePinning: boolean,
   appCallbackScheme: string
 }

@@ -23,6 +23,6 @@ Pod::Spec.new do |s|
     #ctd.dependency "Datatrans"
   #end
   s.dependency "React-Core"
-  #s.dependency "Datatrans"
+  s.dependency "Datatrans"
  # s.dependency "Datatrans" , {:git => "https://github.com/datatrans/ios-sdk"}
 end
